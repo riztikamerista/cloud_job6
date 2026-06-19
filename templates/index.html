@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            text-align: left;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"], select {
+            padding: 8px;
+            margin-top: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        .result {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .submit-btn {
+            text-align: right;
+            margin-top: 20px;
+            grid-column: span 2;
+        }
+        button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Diabetes Prediction</h2>
+
+        {% if prediction_text %}
+        <div class="result">
+            Hasil prediksi: {{ prediction_text }}
+        </div>
+        {% endif %}
+
+        <form action="/predict" method="post">
+            <div class="form-group full-width">
+                <label for="model">Model</label>
+                <select name="model" id="model" required>
+                    {% for m in model_names %}
+                    <option value="{{ m }}">{{ m }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Pregnancies</label>
+                    <input type="text" name="pregnancies" required="required" />
+                </div>
+                <div class="form-group">
+                    <label>Glucose</label>
+                    <input type="text" name="glucose" required="required" />
+                </div>
+                <div class="form-group">
+                    <label>BloodPressure</label>
+                    <input type="text" name="bloodpressure" required="required" />
+                </div>
+                <div class="form-group">
+                    <label>SkinThickness</label>
+                    <input type="text" name="skinthickness" required="required" />
+                </div>
+                <div class="form-group">
+                    <label>Insulin</label>
+                    <input type="text" name="insulin" required="required" />
+                </div>
+                <div class="form-group">
+                    <label>BMI</label>
+                    <input type="text" name="bmi" required="required" />
+                </div>
+                <div class="form-group">
+                    <label>DiabetesPedigreeFunction</label>
+                    <input type="text" name="diabetespedigreefunction" required="required" />
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="text" name="age" required="required" />
+                </div>
+            </div>
+            
+            <div class="submit-btn">
+                <button type="submit">Predict</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
